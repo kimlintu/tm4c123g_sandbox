@@ -1,9 +1,3 @@
-#ifndef __NO_SYSTEM_INIT
-void SystemInit()
-{
-}
-#endif
-
 #include "tm4c123gh6pm.h"
 
 #include "gpio.h"
