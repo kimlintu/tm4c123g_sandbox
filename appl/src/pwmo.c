@@ -23,7 +23,7 @@ void Pwmo_init(void)
     PWM1_2_CTL_R = 0;
 
     /* Action when matching comparator => output HIGH */
-    PWM1_2_GENB_R |= PWM_1_GENB_ACTCMPAD_ONE; 
+    PWM1_2_GENB_R |= PWM_1_GENB_ACTCMPAD_ONE;
 
     /* Action when resetting counter   => output LOW  */
     PWM1_2_GENB_R |= PWM_1_GENB_ACTLOAD_ZERO;
@@ -61,7 +61,7 @@ void Pwmo_10ms(void)
 
 static void Pwmo_setDutyCycle(uint32_t dutyCycle_U32)
 {
-    uint16_t cmpValue_U16 = (dutyCycle_U32 * (PWMO_LOAD_U16 / 32 - 1)) / 100; 
+    uint16_t cmpValue_U16 = (dutyCycle_U32 * (PWMO_LOAD_U16 / 32 - 1)) / 100;
 
     PWM1_2_CMPA_R = cmpValue_U16;
 }
