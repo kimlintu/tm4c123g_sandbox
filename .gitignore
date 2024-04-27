@@ -1,0 +1,7 @@
+# Build artifacts
+appl/out
+boot/out
+out/
+
+# vscode
+.vscode/settings.json

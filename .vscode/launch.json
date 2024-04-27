@@ -1,0 +1,33 @@
+{
+    "version": "0.0.1",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "miDebuggerPath": "arm-none-eabi-gdb",
+            "targetArchitecture": "arm",
+            "debugServerPath": "openocd",
+            "debugServerArgs": "-f /usr/share/openocd/scripts/board/ti_ek-tm4c123gxl.cfg",
+            "filterStderr": true,
+            "serverStarted": "Info\\ :\\ [\\w\\d\\.]*:\\ hardware",
+            "program": "/home/kimli/projects/tm4c123_test/proj/boot/build/boot.elf",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "text": "target extended-remote :3333"
+                },
+                {
+                    "text": "monitor halt"
+                },
+                {
+                    "text": "load /home/kimli/projects/tm4c123_test/proj/boot/build/boot.elf" 
+                }
+            ]
+        }
+    ]
+}
