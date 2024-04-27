@@ -4,6 +4,7 @@
 #include "clck.h"
 #include "gpio.h"
 #include "pwmo.h"
+#include "uart.h"
 
 volatile uint32_t syst_ct_sysTick_U32 = 0;
 
@@ -16,7 +17,8 @@ void SysTick_Handler(void)
 
     if ((syst_ct_sysTick_U32 % 10) == 0)
     {
-        Pwmo_10ms();
+        //Pwmo_10ms();
+        Uart_10ms();
     }
 
     syst_ct_sysTick_U32 += 1;

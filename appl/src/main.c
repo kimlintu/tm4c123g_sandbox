@@ -16,9 +16,14 @@ int32_t main(void)
     Vect_updateVectorTableOffset();
     Clck_init();
     Gpio_init();
-    Syst_init();
-    Pwmo_init();
+    
+    //Pwmo_init();
     Uart_init();
+
+    /* This will enable the SysTick interrupt, which is our scheduler, */
+    /* therefore it should probably be called last.                    */
+    Syst_init();
+    //Gpio_toggle();
 
     while (1)
     {
