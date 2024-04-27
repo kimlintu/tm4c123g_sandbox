@@ -4,6 +4,7 @@
 #include "clck.h"
 #include "syst.h"
 #include "pwmo.h"
+#include "uart.h"
 
 void Vect_updateVectorTableOffset(void)
 {
@@ -17,6 +18,7 @@ int32_t main(void)
     Gpio_init();
     Syst_init();
     Pwmo_init();
+    Uart_init();
 
     while (1)
     {
