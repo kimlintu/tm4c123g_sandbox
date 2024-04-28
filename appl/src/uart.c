@@ -2,6 +2,7 @@
 
 #include "uart.h"
 #include "gpio.h"
+#include "rbfr.h"
 
 typedef enum 
 {
@@ -17,8 +18,11 @@ typedef enum
 
 typedef struct 
 {
-    tUART_BAUDRATE_E baudRate_E;
-    tUART_DATALEN_E  dataLen_E;
+    tUART_BAUDRATE_E baudRate_E; /* Baud rate used for communication      */
+    tUART_DATALEN_E  dataLen_E;  /* Number of data bits in an UART frame  */
+    tRBFR_SIZE_E     queueSize;  /* Number of data packets to store for   */
+                                 /* processing, each packet has a nr. of  */
+                                 /* bits specified by dataLen_E *         */
 } tUART_CONF_STR;
 
 tUART_CONF_STR uart_conf_str = 
@@ -32,6 +36,8 @@ typedef struct
     uint32_t integer_U32;    /* Integer part of baud rate divisor    */
     uint32_t fractional_U32; /* Fractional part of baud rate divisor */
 } tUART_BAUDRATE_DIV_STR;
+
+static uint32_t uart_rbfrDescriptor_U32 = UINT32_MAX;
 
 /*
  * Configures and enables the UART module. 
@@ -108,7 +114,7 @@ static tUART_BAUDRATE_DIV_STR Uart_getBaudRateDivisor_str(tUART_BAUDRATE_E baudR
 /*
  * Returns a bitfield specifying the UART link control configuration.
  *
- * @param dataLen_E: Enum specifying the length of data in an UART frame
+ * @param dataLen_E: Enum specifying the number of data bits in an UART frame
  * 
  * TODO: add other parameters
  */
@@ -141,7 +147,15 @@ void Uart_enableModule(tUART_CONF_STR *conf_pstr)
         {
             linkCtrlBf_U32 = Uart_getLinkCtrlBf_U32(conf_pstr->dataLen_E);
 
-            Uart_configure(baudRateDivisor_str, linkCtrlBf_U32);
+            if (Rbfr_new_B(&uart_rbfrDescriptor_U32, RBFR_SIZE_8_E) == true)
+            {
+                Uart_configure(baudRateDivisor_str, linkCtrlBf_U32);
+            }
+            else 
+            {
+                /* Failed to get a ring buffer */
+                /* TODO: error logging         */
+            }
         }
         else 
         {
@@ -164,25 +178,42 @@ void Uart_init(void)
 void Uart_10ms(void)
 {
     uint8_t rxData_U08;
+    uint8_t txData_U08;
     uint32_t uartDataAndFlags_U32;
+    bool writeOp_B;
+    bool readOp_B;
 
-    /* Check if we received anything */
-    if ((UART3_FR_R & UART_FR_RXFF) == UART_FR_RXFF)
+    if (uart_rbfrDescriptor_U32 != UINT32_MAX)
     {
-        uartDataAndFlags_U32 = UART3_DR_R;
+        /* Uart is configured, TODO: better way of deciding this */
 
-        rxData_U08 = (uint8_t)(uartDataAndFlags_U32 & 0xFF);
-
-        if (rxData_U08 == 'l')
+        /* Check if we received anything */
+        if ((UART3_FR_R & UART_FR_RXFF) == UART_FR_RXFF)
         {
-            Gpio_toggle();
-        }
+            uartDataAndFlags_U32 = UART3_DR_R;
 
-        /* Echo data */
-        if ((UART3_FR_R & UART_FR_TXFE) == UART_FR_TXFE)
-        {
-            /* TX buffer is empty, we can send data */
-            UART3_DR_R = rxData_U08;
+            rxData_U08 = (uint8_t)(uartDataAndFlags_U32 & 0xFF);
+
+            writeOp_B = Rbfr_write_B(uart_rbfrDescriptor_U32, rxData_U08);
+
+            /* Echo data */
+            if ((UART3_FR_R & UART_FR_TXFE) == UART_FR_TXFE)
+            {
+                readOp_B |= Rbfr_read_B(uart_rbfrDescriptor_U32, &txData_U08);
+                /* TX buffer is empty, we can send data */
+                UART3_DR_R = rxData_U08;
+            }
+
+            if ((writeOp_B == false) || (readOp_B == false))
+            {
+                Gpio_toggle();
+            }
+
+            if (rxData_U08 == 'l')
+            {
+                Gpio_toggle();
+            }
+
         }
     }
 }
