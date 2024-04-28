@@ -11,7 +11,7 @@
             "debugServerArgs": "-f /usr/share/openocd/scripts/board/ti_ek-tm4c123gxl.cfg",
             "filterStderr": true,
             "serverStarted": "Info\\ :\\ [\\w\\d\\.]*:\\ hardware",
-            "program": "/home/kimli/projects/tm4c123_test/proj/boot/build/boot.elf",
+            "program": "/home/kimli/projects/tm4c123_test/proj/boot/out/boot.elf",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
@@ -25,7 +25,10 @@
                     "text": "monitor halt"
                 },
                 {
-                    "text": "load /home/kimli/projects/tm4c123_test/proj/boot/build/boot.elf" 
+                    "text": "load /home/kimli/projects/tm4c123_test/proj/boot/out/boot.elf" 
+                },
+                {
+                    "text": "add-symbol-file /home/kimli/projects/tm4c123_test/proj/appl/out/appl.elf 0x00001000"
                 }
             ]
         }

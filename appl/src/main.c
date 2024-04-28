@@ -4,6 +4,7 @@
 #include "clck.h"
 #include "syst.h"
 #include "pwmo.h"
+#include "uart.h"
 
 void Vect_updateVectorTableOffset(void)
 {
@@ -15,8 +16,14 @@ int32_t main(void)
     Vect_updateVectorTableOffset();
     Clck_init();
     Gpio_init();
+    
+    //Pwmo_init();
+    Uart_init();
+
+    /* This will enable the SysTick interrupt, which is our scheduler, */
+    /* therefore it should probably be called last.                    */
     Syst_init();
-    Pwmo_init();
+    //Gpio_toggle();
 
     while (1)
     {
