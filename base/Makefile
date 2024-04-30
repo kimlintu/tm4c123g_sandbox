@@ -4,8 +4,8 @@
 PROJECT=$(notdir $(CURDIR))
 
 BUILD_DIR=out/
-SRC_DIR=src/
-INC_DIR=$(SRC_DIR)inc/
+SRC_DIR=src/strt/
+INC_DIR=inc/strt/
 
 PREFIX=arm-none-eabi
 CC=$(PREFIX)-gcc
@@ -24,10 +24,10 @@ DEBUG_FLAGS=-g		\
 
 MAP=--Map=$(BUILD_DIR)$(PROJECT).map
 GC=--gc-sections
-LDSCRIPTS=-L../base/ld -T linker.ld -L../base/ -lBASE
+LDSCRIPTS=-Lld -T linker.ld
 
 # variables used by make's builtin rules
-CFLAGS=$(ARCH_FLAGS) $(DEBUG_FLAGS) -I$(INC_DIR) 
+CFLAGS=$(ARCH_FLAGS) $(DEBUG_FLAGS) -I$(INC_DIR)
 ASFLAGS=$(ARCH_FLAGS)
 LDFLAGS=$(LDSCRIPTS) $(MAP) $(GC)
 
@@ -50,9 +50,9 @@ $(BUILD_DIR)%.s: $(SRC_DIR)%.c
 $(BUILD_DIR)%.o: $(BUILD_DIR)%.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
-$(EXE): $(OBJS)
-	$(LD) $(LDFLAGS) -o $@ $(OBJS)
-	arm-none-eabi-objcopy -I elf32-littlearm -O binary $(EXE) $(BUILD_DIR)$(PROJECT).bin
+#$(EXE): $(OBJS)
+#	$(LD) $(LDFLAGS) -o $@ $(OBJS)
+#	arm-none-eabi-objcopy -I elf32-littlearm -O binary $(EXE) $(BUILD_DIR)$(PROJECT).bin
 
 clean:
 	rm -rf $(BUILD_DIR)
