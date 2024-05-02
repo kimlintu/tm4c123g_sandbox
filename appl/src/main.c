@@ -6,14 +6,8 @@
 #include "pwmo.h"
 #include "uart.h"
 
-void Vect_updateVectorTableOffset(void)
-{
-    NVIC_VTABLE_R |= 0x1000;
-}
-
 int32_t main(void)
 {
-    Vect_updateVectorTableOffset();
     Clck_init();
     Gpio_init();
     
