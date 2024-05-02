@@ -79,7 +79,7 @@ __attribute__((weak)) void SysTick_Handler(void)
 }
 
 __attribute__((section(".base_isr_vector")))
-tVECT_HANDLER_FN Vect_vectorTable_af[] =
+const tVECT_HANDLER_FN const Vect_vectorTable_af[] =
 {
     (tVECT_HANDLER_FN)&_lnk_stackTop,
     (tVECT_HANDLER_FN)Strt_main,
@@ -98,3 +98,10 @@ tVECT_HANDLER_FN Vect_vectorTable_af[] =
     (tVECT_HANDLER_FN)PendSV_Handler,
     (tVECT_HANDLER_FN)SysTick_Handler,
 };
+
+#define NVIC_VTABLE_R           (*((volatile uint32_t *)0xE000ED08))
+
+void Vect_updateVectorTableOffset(void)
+{
+    NVIC_VTABLE_R |= (uint32_t)Vect_vectorTable_af;
+}

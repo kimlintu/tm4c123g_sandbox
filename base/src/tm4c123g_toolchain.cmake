@@ -4,7 +4,7 @@ set(CMAKE_SYSTEM_PROCESSOR arm)
 
 # C compiler
 set(CMAKE_C_COMPILER arm-none-eabi-gcc)
-set(CMAKE_C_FLAGS "-mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16")
+set(CMAKE_C_FLAGS "-nostdlib -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -Wl,--Map=out.map,--gc-sections,-L/home/kimli/projects/tm4c123_test/proj/base/ld,-Tlinker.ld")
 set(CMAKE_C_FLAGS_DEBUG "-g -gdwarf-3 -gstrict-dwarf -DDEBUG")
 
 # C++ system (not used)

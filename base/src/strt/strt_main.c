@@ -10,6 +10,7 @@
 #include <stdint.h>
 
 #include "strt_main.h"
+#include "strt_vect.h"
 
 extern uint32_t _lnk_romDataSectionStart_U32;
 extern uint32_t _lnk_ramDataSectionStart_U32;
@@ -40,6 +41,8 @@ void Strt_main(void)
     {
         ramBssSection_pU32[i_U32] = 0;
     }
+
+    Vect_updateVectorTableOffset();
 
     /* Call main application */
     main();

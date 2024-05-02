@@ -1,5 +1,5 @@
 include(files.cmake)
 
-add_library(BASE STATIC "${C_FILES}")
+add_library(base STATIC "${C_FILES}")
 
-target_include_directories(BASE PRIVATE "${H_FILE_DIRS}")
+target_include_directories(base PRIVATE "${H_FILE_DIRS}")
