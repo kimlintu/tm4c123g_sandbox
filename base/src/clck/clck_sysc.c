@@ -1,6 +1,6 @@
 #include "tm4c123gh6pm.h"
 
-#include "clck.h"
+#include "clck_sysc.h"
 
 static void Clck_initSysClock(void);
 

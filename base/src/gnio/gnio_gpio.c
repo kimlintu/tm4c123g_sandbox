@@ -1,6 +1,6 @@
 #include "tm4c123gh6pm.h"
 
-#include "gpio.h"
+#include "gnio_gpio.h"
 
 void Gpio_init(void)
 {
@@ -24,9 +24,4 @@ void Gpio_toggle(void)
     {
         GPIO_PORTF_DATA_R = GPIO_LED_COLOR_U32;
     }
-}
-
-void Gpio_1000ms(void)
-{
-    Gpio_toggle();
 }

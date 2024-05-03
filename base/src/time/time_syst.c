@@ -1,10 +1,8 @@
-#include "tm4c123gh6pm.h"
+#include <stdint.h>
 
-#include "syst.h"
-#include "clck.h"
-#include "gpio.h"
-#include "pwmo.h"
-#include "uart.h"
+#include "time_syst.h"
+#include "clck_sysc.h"
+#include "tm4c123gh6pm.h"
 
 volatile uint32_t syst_ct_sysTick_U32 = 0;
 
@@ -18,7 +16,7 @@ void SysTick_Handler(void)
     if ((syst_ct_sysTick_U32 % 10) == 0)
     {
         //Pwmo_10ms();
-        Uart_10ms();
+        //Uart_10ms();
     }
 
     syst_ct_sysTick_U32 += 1;

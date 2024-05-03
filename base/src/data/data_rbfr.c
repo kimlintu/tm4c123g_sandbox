@@ -1,6 +1,7 @@
 #include <stddef.h>
+#include <stdbool.h>
 
-#include "rbfr.h"
+#include "data_rbfr.h"
 
 #define RBFR_NR_SIZE8_BUFFERS_U08 (uint8_t)(1)
 
@@ -84,10 +85,19 @@ static tRBFR_BUFFER_STR *Rbfr_getRingBuffer_pstr(uint32_t rbfrDescriptor_U32)
 
 static bool Rbfr_bufferIsEmpty_B(tRBFR_BUFFER_STR *ringBuffer_pstr)
 {
+    bool ret_B;
+
     if (ringBuffer_pstr != NULL)
     {
-        return ringBuffer_pstr->readIndex_U16 == ringBuffer_pstr->writeIndex_U16;
+        ret_B = ringBuffer_pstr->readIndex_U16 == ringBuffer_pstr->writeIndex_U16;
     }
+    else
+    {
+        /* TODO: error logging */
+        ret_B = false;
+    }
+
+    return ret_B;
 }
 
 /*

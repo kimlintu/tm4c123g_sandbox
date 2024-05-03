@@ -1,14 +1,10 @@
 #include "tm4c123gh6pm.h"
 
-#include "pwmo.h"
-
-static uint32_t pwmo_ct_ticks_U32 = 0;
-
-static void Pwmo_setDutyCycle(uint32_t dutyCycle_U32);
+#include "diio_pwmd.h"
 
 #define PWMO_LOAD_U16 ((uint16_t)0xC350)
 
-void Pwmo_init(void)
+void Pwmd_init(void)
 {
     /* Clock gating to PWM module */
     SYSCTL_RCGCPWM_R |= SYSCTL_RCGCPWM_R1;
@@ -41,25 +37,7 @@ void Pwmo_init(void)
     PWM1_ENABLE_R |= PWM_ENABLE_PWM5EN;
 }
 
-void Pwmo_10ms(void)
-{
-    static int8_t counterDirection_S08 = 1;
-
-    if (pwmo_ct_ticks_U32 == 100)
-    {
-        counterDirection_S08 = -1;
-    }
-    else if (pwmo_ct_ticks_U32 == 0)
-    {
-        counterDirection_S08 = 1;
-    }
-
-    Pwmo_setDutyCycle(pwmo_ct_ticks_U32);
-
-    pwmo_ct_ticks_U32 += counterDirection_S08;
-}
-
-static void Pwmo_setDutyCycle(uint32_t dutyCycle_U32)
+void Pwmd_setDutyCycle(uint32_t dutyCycle_U32)
 {
     uint16_t cmpValue_U16 = (dutyCycle_U32 * (PWMO_LOAD_U16 / 32 - 1)) / 100;
 

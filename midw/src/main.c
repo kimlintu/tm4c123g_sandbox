@@ -1,10 +1,10 @@
 #include "tm4c123gh6pm.h"
 
-#include "gpio.h"
-#include "clck.h"
-#include "syst.h"
-#include "pwmo.h"
-#include "uart.h"
+#include "comm_uart.h"
+#include "gnio_gpio.h"
+#include "clck_sysc.h"
+#include "diio_pwmd.h"
+#include "time_syst.h"
 
 int32_t main(void)
 {

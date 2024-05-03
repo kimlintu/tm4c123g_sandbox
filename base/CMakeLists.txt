@@ -16,6 +16,9 @@ export_target(TARGET            base
               CMAKE_DESTINATION "cmake/"
 )
 
+get_target_property(BASE_INCLUDE_DIRECTORIES base INCLUDE_DIRECTORIES)
+install(DIRECTORY ${BASE_INCLUDE_DIRECTORIES} DESTINATION "include/" )
+
 package_release(TARGET base
                 CMAKE_DESTINATION "cmake/"
 )
