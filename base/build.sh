@@ -5,7 +5,7 @@ cmake_clean() {
 }
 
 cmake_build() {
-    cmake -DCMAKE_TOOLCHAIN_FILE=./src/tm4c123g_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MODULE_PATH=../tools_cfg/cmake -S . -B out/
+    cmake -DCMAKE_TOOLCHAIN_FILE=./src/tm4c123g_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=../extern -S . -B out/
     cmake --build out
 }
 
