@@ -1,12 +1,9 @@
-cmake_minimum_required(VERSION 3.22.1)
+cmake_minimum_required(VERSION 3.24)
 
 project(APPL)
 
-add_subdirectory(src)
+find_package(midw CONFIG REQUIRED)
 
-add_executable(appl_target "${CMAKE_CURRENT_SOURCE_DIR}/src/main.c")
+add_executable(target "${CMAKE_CURRENT_SOURCE_DIR}/src/dummy.c")
 
-find_package(base CONFIG REQUIRED)
-
-target_link_libraries(appl_target PRIVATE appl)
-target_link_libraries(appl_target PRIVATE LibBase::base)
+target_link_libraries(target PRIVATE LibMidw::midw)

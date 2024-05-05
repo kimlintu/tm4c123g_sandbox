@@ -12,10 +12,8 @@ add_subdirectory(src)
 
 export_target(TARGET            midw 
               NAMESPACE         LibMidw:: 
-              LIB_DESTINATION   "lib/"
-              CMAKE_DESTINATION "cmake/"
+              LIB_DESTINATION   "lib"
+              INCL_DESTINATION  "include"
 )
 
-package_release(TARGET midw
-                CMAKE_DESTINATION "cmake/"
-)
+package_release(TARGET midw)

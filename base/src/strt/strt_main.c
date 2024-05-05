@@ -12,14 +12,14 @@
 #include "strt_main.h"
 #include "strt_vect.h"
 
+#include "main.h"
+
 extern uint32_t _lnk_romDataSectionStart_U32;
 extern uint32_t _lnk_ramDataSectionStart_U32;
 extern uint32_t _lnk_dataSectionSize_U32;
 
 extern uint32_t _lnk_ramBssSectionStart_U32;
 extern uint32_t _lnk_bssSectionSize_U32;
-
-extern int32_t main(void);
 
 void Strt_main(void)
 {

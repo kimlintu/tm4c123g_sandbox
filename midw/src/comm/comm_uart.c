@@ -4,6 +4,12 @@
 #include "coms_uart.h"
 #include "gnio_gpio.h"
 
+tUART_CONF_STR uart_conf_str = 
+{
+    UART_BAUDRATE_115200_E,
+    UART_DATA_8BIT_E
+};
+
 static uint32_t uart_rbfrDescriptor_U32 = UINT32_MAX;
 
 void Uart_enableModule(tUART_CONF_STR *conf_pstr)

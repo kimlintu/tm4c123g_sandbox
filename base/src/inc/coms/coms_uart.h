@@ -1,6 +1,6 @@
 #pragma once
 
-#include "data_rbfr.h"
+#include <stdint.h>
 
 typedef enum 
 {
@@ -13,21 +13,6 @@ typedef enum
     UART_DATA_8BIT_E,
     UART_DATA_INVALID_E
 } tUART_DATALEN_E;
-
-typedef struct 
-{
-    tUART_BAUDRATE_E baudRate_E; /* Baud rate used for communication      */
-    tUART_DATALEN_E  dataLen_E;  /* Number of data bits in an UART frame  */
-    tRBFR_SIZE_E     queueSize;  /* Number of data packets to store for   */
-                                 /* processing, each packet has a nr. of  */
-                                 /* bits specified by dataLen_E *         */
-} tUART_CONF_STR;
-
-tUART_CONF_STR uart_conf_str = 
-{
-    UART_BAUDRATE_115200_E,
-    UART_DATA_8BIT_E
-};
 
 typedef struct 
 {

@@ -4,7 +4,7 @@
 #include "clck_sysc.h"
 #include "tm4c123gh6pm.h"
 
-volatile uint32_t syst_ct_sysTick_U32 = 0;
+volatile static uint32_t syst_ct_sysTick_U32 = 0;
 
 void SysTick_Handler(void)
 {
@@ -41,4 +41,9 @@ void Syst_init(void)
 
     /* Start counting! */
     NVIC_ST_CTRL_R |= NVIC_ST_CTRL_ENABLE;
+}
+
+uint32_t Syst_getSysTick_U32(void)
+{
+    return syst_ct_sysTick_U32;
 }

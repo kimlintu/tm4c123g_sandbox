@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22.1)
 
-project(cmakeUtils)
+project(cmakeUtils VERSION 0.2.0)
 
 include(CMakePackageConfigHelpers)
 

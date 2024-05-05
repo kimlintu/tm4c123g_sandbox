@@ -5,6 +5,11 @@
 
 static uint32_t pwmo_ct_ticks_U32 = 0;
 
+void Pwmo_init(void)
+{
+    Pwmd_init();
+}
+
 void Pwmo_10ms(void)
 {
     static int8_t counterDirection_S08 = 1;
