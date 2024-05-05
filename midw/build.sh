@@ -5,7 +5,7 @@ cmd_clean() {
 }
 
 cmd_build() {
-    cmake -DCMAKE_TOOLCHAIN_FILE=../base/src/tm4c123g_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=../extern -S . -B out
+    cmake -DCMAKE_TOOLCHAIN_FILE=../extern/base/toolchain/tm4c123g_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=../extern -S . -B out
     cmake --build out
 }
 

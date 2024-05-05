@@ -31,7 +31,7 @@ if [ "$1" == "build" ]; then
     cmake_build
 fi
 
-if [ "$1" == "install" ]; then
+if [ "$1" == "release" ]; then
     cmake_clean
     cmake_build
     cmake_install

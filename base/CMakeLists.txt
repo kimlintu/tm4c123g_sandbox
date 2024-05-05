@@ -8,7 +8,6 @@ add_subdirectory(src)
 
 find_package(cmakeUtils CONFIG REQUIRED)
 include(cmakeExporting)
-include(cmakeLogging)
 
 export_target(TARGET            base 
               NAMESPACE         LibBase:: 
@@ -17,3 +16,5 @@ export_target(TARGET            base
 )
 
 package_release(TARGET base)
+
+install(FILES "src/tm4c123g_toolchain.cmake" DESTINATION "toolchain")
