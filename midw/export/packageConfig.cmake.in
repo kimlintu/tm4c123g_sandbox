@@ -1,0 +1,9 @@
+include(CMakeFindDependencyMacro)
+find_dependency(base)
+
+include("${CMAKE_CURRENT_LIST_DIR}/@PACKAGE_RELEASE_TARGET@Targets.cmake")
+
+# We need to give a hint to CMake that the base library depends on midw so that
+# it gets linked correctly
+set_target_properties(LibBase::base PROPERTIES
+                      INTERFACE_LINK_LIBRARIES LibMidw::midw)

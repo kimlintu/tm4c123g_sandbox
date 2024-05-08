@@ -5,3 +5,6 @@ out/
 
 # vscode
 .vscode/settings.json
+
+# Extern libraries
+extern/

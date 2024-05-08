@@ -1,33 +1,34 @@
 #!/bin/sh
 
-if [ "$1" = "clean" ]; then
-    cd appl 
-    make clean
+# Build base lib
 
-    cd ..
+cd base
 
-    cd boot 
-    make clean
+./build.sh "release"
 
-    cd ..
+cd ..
 
-    rm -rf out
+# Build midw lib
 
-    exit
-fi
+cd midw
 
-############################
-# Create application binary
-cd appl 
+./build.sh "release"
 
-if [ ! -d "out/" ]; then
-    mkdir out
-fi
+cd ..
 
-make 
-############################
+# Build app
 
-cd .. 
+cd appl
+
+./build.sh 
+
+cd out
+
+arm-none-eabi-objcopy -I elf32-littlearm -O binary target target.bin 
+
+cd ..
+
+cd ..
 
 ############################
 # Create boot binary
@@ -54,5 +55,5 @@ if [ ! -d "out/" ]; then
 fi
 
 echo "Creating target.bin"
-cat boot/out/boot.bin appl/out/appl.bin > out/target.bin
+cat boot/out/boot.bin appl/out/target.bin > out/target.bin
 ############################
