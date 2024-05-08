@@ -4,7 +4,7 @@
 
 cd base
 
-./build.sh "install"
+./build.sh "release"
 
 cd ..
 
